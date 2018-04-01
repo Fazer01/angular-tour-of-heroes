@@ -1,0 +1,22 @@
+<h2> My Heroes </h2>
+<div class="form-group">
+    <label>Name: </label>
+    <input type="text" class="form-control" placeholder="name" #heroName>
+    <button class="btn btn-primary mt-2" type="submit" (click)="add(heroName.value)">Add New Hero</button>
+</div>   
+<div class="container-fluid">
+    <div class="row card-group ">
+        <div class="col-sm-2" *ngFor="let hero of heroes">
+            <div class="card m-1" routerLink="/detail/{{hero.id}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{hero.name | uppercase}}</h5>
+                    <button class="btn btn-danger" title="Delete" (click)="delete(hero)">Delete</button>
+                    <p class="card-text">Some short description of what this hero does...</p>                     
+                    <hr/> 
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+
+    

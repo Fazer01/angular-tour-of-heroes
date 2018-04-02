@@ -11,9 +11,13 @@ import { Location } from '@angular/common';
 })
 export class HeroDetailComponent implements OnInit{
 
+  private loading: boolean;
   @Input() hero: Hero;
 
-  constructor(private route: ActivatedRoute, private heroService: HeroService, private location: Location) { }
+  constructor(private route: ActivatedRoute, private heroService: HeroService, private location: Location) 
+  { 
+
+  }
 
 
   ngOnInit(){
@@ -21,8 +25,14 @@ export class HeroDetailComponent implements OnInit{
   }
 
   getHero(): void{
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.heroService.getHero(id).subscribe(hero => this.hero = hero);
+    //Plus sign makes sure to return the numeric representation of the string object.
+    let id = +this.route.snapshot.paramMap.get('id');
+    this.loading = true;
+    this.heroService.getHero(id).subscribe(hero => 
+      {
+        this.hero = hero;
+        this.loading = false;
+      });
   }
 
   goBack(): void {

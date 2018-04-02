@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 import {MessageService} from 'primeng/components/common/messageservice';
-import { Message } from 'primeng/components/common/api';
+import { Message, ConfirmationService } from 'primeng/components/common/api';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'heroes',
@@ -12,8 +14,12 @@ import { Message } from 'primeng/components/common/api';
 export class HeroesComponent implements OnInit{
 
   private heroes: Hero[];  
+  private loading: boolean; 
 
-  constructor(private heroService: HeroService, private messageService: MessageService) {     
+  constructor(private heroService: HeroService, 
+              private route: Router,
+              private messageService: MessageService, 
+              private confirmationService: ConfirmationService) {     
   }
 
   ngOnInit()
@@ -23,12 +29,14 @@ export class HeroesComponent implements OnInit{
 
   getHeroes(): void
   {
+    this.loading = true;
     //Async operations... notice the subscribe
     this.heroService.getHeroes().subscribe
       (
         results => 
           { 
             this.heroes = results;
+            this.loading = false;
           }
       );
   }  
@@ -41,10 +49,27 @@ export class HeroesComponent implements OnInit{
         this.heroes.push(hero);
       });
   }
+  goDetails(hero: Hero)
+  {
+    console.log(`Navigate to hero: ${hero.name}`)
+    this.route.navigate(['/detail', hero.id]);
+  }
 
   delete(hero: Hero)
   {
-    this.heroes = this.heroes.filter(h => h !== hero);
-    this.heroService.deleteHero(hero).subscribe();
+    console.log('Blaat');
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to proceed?',
+      header: 'Confirmation',
+      icon: 'fa fa-question-circle',
+      accept: () => {          
+          this.heroes = this.heroes.filter(h => h !== hero);
+          this.heroService.deleteHero(hero).subscribe();
+          this.messageService.add({severity:'info', summary:'Confirmed', detail:`Hero: ${hero.name} is deleted`});
+      },
+      reject: () => {
+        this.messageService.add({severity:'info', summary:'Rejected', detail:'You have rejected'});
+      }
+    }); 
   }
 }

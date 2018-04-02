@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/primeng';
 import { AppRoutingModule } from './/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './heroes/heroes.component';
@@ -19,7 +19,10 @@ import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { HeroService } from './hero.service';
 import { InMemoryDataService }  from './in-memory-data.service';
+import {ConfirmationService} from 'primeng/api';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { HeaderComponent } from './header/header.component';
+
 
 
 
@@ -30,7 +33,8 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     HeroDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    HeroSearchComponent
+    HeroSearchComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule, 
@@ -40,9 +44,10 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     ButtonModule,   
     HttpClientModule, 
     AppRoutingModule,
+    ConfirmDialogModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService)    
   ],
-  providers: [HeroService, MessageService],
+  providers: [HeroService, MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

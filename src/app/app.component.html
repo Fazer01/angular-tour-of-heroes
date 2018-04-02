@@ -1,11 +1,17 @@
+
+<p-growl [(value)]="msgs" [life]="1500"></p-growl>
+<header></header>
 <div class="jumbotron">
     <h1 class="display-3">{{ title }} </h1>
     <p class="lead">This is the Angular Tour of Heroes!</p>
     <hr class="my-2">
 </div>
-<nav>
-    <a routerLink="/heroes">Heroes</a>
-    <a routerLink="/dashboard">Dashboard</a>
-</nav>
-<router-outlet></router-outlet>
-<messages></messages>
+<div class="container">
+    <div class="row">        
+    </div>
+    <router-outlet></router-outlet>
+    <hr/>
+    <footer><p class="text-muted">© Tom Baten 2018</p></footer>
+</div>
+
+<!-- <messages></messages> -->

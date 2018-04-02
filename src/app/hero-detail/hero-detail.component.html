@@ -1,4 +1,7 @@
 <h4>Hero Details</h4>
+<div class="text-center" *ngIf="loading" >
+    <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+</div>
 <div *ngIf="hero">      
   <div class="container-fluid">
       <div class="card m-1"> 
@@ -9,10 +12,10 @@
               <div class="form-group">
                   <label>Name: </label>
                   <input type="text" class="form-control" [(ngModel)]="hero.name" placeholder="name">
-              </div>   
-          </div>     
-      </div> 
-      <button class="btn btn-primary" (click)="save()">Save</button>    
-      <button class="btn btn-primary" (click)="goBack()">Back</button>    
+              </div>
+              <button pButton type="button" label="Save" icon="fa-floppy-o" iconPos="left" (click)="save()"></button>    
+              <button pButton type="button" label="Back" icon="fa-hand-o-left" iconPos="left" (click)="goBack()"></button>  
+          </div>            
+      </div>
   </div>
 </div>

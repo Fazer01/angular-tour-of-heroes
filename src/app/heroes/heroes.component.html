@@ -1,18 +1,36 @@
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" #cd>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" label="Yes" (click)="cd.accept()"></button>
+        <button type="button" pButton icon="fa-close" label="No" (click)="cd.reject()"></button>        
+    </p-footer>
+</p-confirmDialog>
 <h2> My Heroes </h2>
 <div class="form-group">
     <label>Name: </label>
     <input type="text" class="form-control" placeholder="name" #heroName>
-    <button class="btn btn-primary mt-2" type="submit" (click)="add(heroName.value)">Add New Hero</button>
+    <button type="button" class="ui-button-success mt-1" (click)="add(heroName.value)" pButton icon="fa-plus-circle" label="Add Hero"></button>
 </div>   
+<div class="text-center" *ngIf="loading" >
+    <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+</div>
 <div class="container-fluid">
-    <div class="row card-group ">
-        <div class="col-sm-2" *ngFor="let hero of heroes">
-            <div class="card m-1" routerLink="/detail/{{hero.id}}">
+    <div class="row card-group">
+        <div class="col-md-4" *ngFor="let hero of heroes">
+            <div class="card mb-1">
                 <div class="card-body">
                     <h5 class="card-title">{{hero.name | uppercase}}</h5>
-                    <button class="btn btn-danger" title="Delete" (click)="delete(hero)">Delete</button>
                     <p class="card-text">Some short description of what this hero does...</p>                     
                     <hr/> 
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" class="ui-button-danger" (click)="delete(hero)" pButton icon="fa-trash" label="Delete"></button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" class="ui-button-info" (click)="goDetails(hero)" pButton icon="fa-info" label="Details"></button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>        

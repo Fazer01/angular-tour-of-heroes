@@ -7,7 +7,7 @@
 </div>
 <div class="list-group">
   <li class="list-group-item list-group-item-action" *ngFor="let hero of heroes$ | async" >
-    <a routerLink="/detail/{{hero.id}}"> {{hero.name}} </a>
+    <a [routerLink]="['/detail', hero.id]"> {{hero.name}} </a>
   </li>
 </div>
 

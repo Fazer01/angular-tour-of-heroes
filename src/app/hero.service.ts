@@ -20,45 +20,40 @@ export class HeroService {
   
   private heroesUrl = 'api/heroes';
 
-  constructor(private messageService: MessageService, private httpClient: HttpClient) { } 
-  
+  constructor(private messageService: MessageService, private httpClient: HttpClient) { }   
  
  /** GET heroes from the server */
-  getHeroes (): Observable<Hero[]> {
+  getHeroes(): Observable<Hero[]> {
     return this.httpClient.get<Hero[]>(this.heroesUrl)
       .pipe(
-        tap(heroes => this.logSuccess(`fetched heroes`)),
+        tap(heroes => this.logSuccess(`Fetched ${heroes.length} heroes!`)),
         catchError(this.handleError('getHeroes', []))
       );
   }
-  
-  getHero(id: number): Observable<Hero>{        
-    this.logSuccess(`HeroService: fetched hero id=${id}`);  
+  /** GET hero by id from the server */
+  getHero(id: number): Observable<Hero>{    
     let url = `${this.heroesUrl}/${id}`;
-
     return this.httpClient.get<Hero>(url).pipe(
       tap(_ => this.logSuccess(`Fetched hero with id: ${id}`)), 
       catchError(this.handleError<Hero>(`getHero id=${id}`))
     );
   }
-
-  updateHero(hero: Hero): Observable<any>{
-   
+  /** PUT Update hero with new information */
+  updateHero(hero: Hero): Observable<any>{   
     return this.httpClient.put(this.heroesUrl, hero, httpOptions).pipe(
-      tap(_ => this.logSuccess(`updated hero id=${hero.id}`)),
+      tap(_ => this.logSuccess(`Updated heroid=${hero.id}`)),
       catchError(this.handleError<any>('updateHero'))
     );
   }
 
   /** POST: add a new hero to the server */
-  addHero (hero: Hero): Observable<Hero> {
-    
+  addHero(hero: Hero): Observable<Hero> {    
     return this.httpClient.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
       tap((hero: Hero) => 
         { 
-          this.logSuccess(`added hero w/ id=${hero.id}`);
+          this.logSuccess(`Added hero: ${hero.name} id: ${hero.id}`);
         }),
-      catchError(this.handleError<Hero>('addHero'))
+      catchError(this.handleError<Hero>('addHero',))
     );
   }
 
@@ -68,7 +63,7 @@ export class HeroService {
     let url = `${this.heroesUrl}/${hero.id}`;  
     
     return this.httpClient.delete<Hero>(url, httpOptions).pipe(
-      tap(_ => this.logSuccess(`deleted hero with id=${hero.id}`)),
+      tap(_ => this.logInfo(`Deleted hero with id=${hero.id}`)),
       catchError(this.handleError<Hero>('deleteHero'))
     );
   }
@@ -79,19 +74,30 @@ export class HeroService {
       return of([]) //return observable of empty array of heroes
     }
     return this.httpClient.get<Hero[]>(`api/heroes/?name=${term}`).pipe(
-      tap(_ => this.logSuccess(`found heroes matching term: ${term}`)),
+      tap(heroes => this.logSuccess(`Found ${heroes.length} heroes matching term: ${term}`)),
       catchError(this.handleError<Hero[]>('searchHeroes', []))
     )
   }
 
+
+  private logInfo(msgDetail: string)
+  {
+    this.messageService.add({severity:'info', summary:'Info', detail:msgDetail});
+  }
+  
+  private logWarning(msgDetail: string)
+  {
+    this.messageService.add({severity:'warn', summary:'Warning', detail:msgDetail});
+  }
+
   private logSuccess(msgDetail: string)
   {
-    this.messageService.add({severity:'success', summary:'', detail:msgDetail});
+    this.messageService.add({severity:'success', summary:'Success', detail:msgDetail});
   }
 
   private logError(msgDetail: string)
   {
-    this.messageService.add({severity:'error', summary:'', detail:msgDetail});
+    this.messageService.add({severity:'error', summary:'Error', detail:msgDetail});
   }
   /**
  * Handle Http operation that failed.

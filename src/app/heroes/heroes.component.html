@@ -21,16 +21,11 @@
                     <h5 class="card-title">{{hero.name | uppercase}}</h5>
                     <p class="card-text">Some short description of what this hero does...</p>                     
                     <hr/> 
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <button type="button" class="ui-button-danger" (click)="delete(hero)" pButton icon="fa-trash" label="Delete"></button>
-                            </div>
-                            <div class="col-md-6">
-                                <button type="button" class="ui-button-info" (click)="goDetails(hero)" pButton icon="fa-info" label="Details"></button>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="container justify-content-center">
+                        <button pButton type="button" class="ui-button-danger mt-1" (click)="delete(hero)" icon="fa-trash" label="Delete"></button>                
+                        <button pButton type="button" class="ui-button-info mt-1" (click)="goDetails(hero)" icon="fa-info" label="Details"></button>          
+                    </div>                  
+                             
                 </div>
             </div>
         </div>        

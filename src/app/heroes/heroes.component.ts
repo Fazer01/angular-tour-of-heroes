@@ -13,8 +13,8 @@ import { Router } from '@angular/router';
 })
 export class HeroesComponent implements OnInit{
 
-  private heroes: Hero[];  
-  private loading: boolean; 
+  heroes: Hero[];  
+  loading: boolean; 
 
   constructor(private heroService: HeroService, 
               private route: Router,

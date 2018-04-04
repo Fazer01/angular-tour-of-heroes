@@ -9,8 +9,8 @@ import { Hero } from '../hero';
 })
 export class DashboardComponent implements OnInit {
 
-  private heroes: Hero[];
-  private loading: boolean;
+  heroes: Hero[];
+  loading: boolean;
   constructor(private heroService: HeroService) { }
 
   

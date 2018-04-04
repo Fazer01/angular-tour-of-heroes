@@ -11,14 +11,13 @@ import { Location } from '@angular/common';
 })
 export class HeroDetailComponent implements OnInit{
 
-  private loading: boolean;
+  loading: boolean;
   @Input() hero: Hero;
 
   constructor(private route: ActivatedRoute, private heroService: HeroService, private location: Location) 
   { 
 
   }
-
 
   ngOnInit(){
     this.getHero();

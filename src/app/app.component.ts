@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import {Message} from 'primeng/components/common/api';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Tour of Heroes';
-
+  msgs: Message[] = [];
   tests = ['Test1', 'Test2', 'Test3', 'test4', 'blaat5'];
 
 }
